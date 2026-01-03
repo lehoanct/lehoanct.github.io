@@ -1,0 +1,28 @@
+// app.js (tóm tắt)
+document.querySelectorAll('.card').forEach((card,i)=>{
+  const preview = card.querySelector('.lottie-preview');
+  const src = card.dataset.lottie;
+  // lazy-load via IntersectionObserver
+  const io = new IntersectionObserver((entries,obs)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        lottie.loadAnimation({container:preview,renderer:'svg',loop:true,autoplay:true,path:src});
+        obs.disconnect();
+      }
+    });
+  });
+  io.observe(preview);
+
+  card.addEventListener('click',()=>{
+    const modal = document.getElementById('modal');
+    modal.setAttribute('aria-hidden','false');
+    const modalContainer = document.getElementById('modal-lottie');
+    lottie.loadAnimation({container:modalContainer,renderer:'svg',loop:false,autoplay:true,path:src});
+    document.getElementById('modal-name').textContent = card.querySelector('h3').textContent;
+    document.getElementById('modal-msg').textContent = card.querySelector('p').textContent;
+    const audio = document.getElementById('modal-audio');
+    audio.src = 'audio/' + (i+1) + '.mp3';
+    audio.play().catch(()=>{/* autoplay may be blocked; user can press play */});
+  });
+});
+document.getElementById('close').addEventListener('click',()=>{document.getElementById('modal').setAttribute('aria-hidden','true')});
