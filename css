@@ -1,0 +1,9 @@
+/* styles.css (tóm tắt) */
+:root{--card-bg:#fff;--accent:#6c5ce7}
+body{font-family:system-ui;background:#f5f6fa;margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;padding:24px}
+.card{background:var(--card-bg);border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.08);cursor:pointer;transition:transform .28s}
+.card:focus,.card:hover{transform:translateY(-6px)}
+.lottie-preview{height:160px}
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5)}
+.modal[aria-hidden="false"]{display:flex}
